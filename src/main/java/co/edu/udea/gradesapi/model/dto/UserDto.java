@@ -1,0 +1,13 @@
+package co.edu.udea.gradesapi.model.dto;
+
+import lombok.Data;
+
+@Data
+public class UserDto {
+
+    private Long id;
+    private String username;
+    private String name;
+    private String email;
+    private String role;
+}

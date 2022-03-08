@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  gen_db_postgres:
+    image: postgres:14.0
+    container_name: gen_db_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: db_postgres
+      POSTGRES_HOST: gen_db_postgres
