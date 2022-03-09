@@ -1,5 +1,6 @@
 package co.edu.udea.gradesapi.service;
 
+import co.edu.udea.gradesapi.exception.DataNotFoundException;
 import co.edu.udea.gradesapi.exception.PeriodNotFoundException;
 import co.edu.udea.gradesapi.model.Period;
 import co.edu.udea.gradesapi.repository.PeriodRepository;
@@ -27,7 +28,7 @@ public class PeriodServiceImpl implements PeriodService {
     @Override
     public Period validateAndGetPeriod(Long id) {
         return periodRepository.findById(String.valueOf(id))
-                .orElseThrow(() -> new PeriodNotFoundException(String.format("Book with isbn %s not found", id)));
+                .orElseThrow(() -> new DataNotFoundException(String.format("Book with isbn %s not found", id)));
     }
 
     @Override

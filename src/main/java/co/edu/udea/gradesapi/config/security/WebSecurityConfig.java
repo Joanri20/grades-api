@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/periods", "/periods/**").hasAuthority(ADMIN)
                 .antMatchers("/users", "/users/**").hasAuthority(ADMIN)
                 .antMatchers("/institutions", "/institutions/**").hasAuthority(ADMIN)
+                .antMatchers("/subjects", "/subjects/**").hasAuthority(ADMIN)
                 .antMatchers("/public/**", "/auth/**").permitAll()
                 .antMatchers("/", "/error", "/csrf", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
