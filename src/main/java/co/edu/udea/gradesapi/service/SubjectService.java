@@ -4,6 +4,7 @@ package co.edu.udea.gradesapi.service;
 import co.edu.udea.gradesapi.model.Subject;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubjectService {
     List<Subject> getSubjects();
@@ -20,7 +21,7 @@ public interface SubjectService {
 
     void deleteSubject(Subject subject);
 
+    Optional<Subject> getSubjectById(Long subjectId);
 
-
-
+    Subject registerTutor(Long subjectId, Long tutorId);
 }

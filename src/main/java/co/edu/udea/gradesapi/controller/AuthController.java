@@ -6,14 +6,24 @@ import co.edu.udea.gradesapi.model.User;
 import co.edu.udea.gradesapi.model.auth.AuthResponse;
 import co.edu.udea.gradesapi.model.auth.SignInRequest;
 import co.edu.udea.gradesapi.model.auth.SignUpRequest;
+import co.edu.udea.gradesapi.model.dto.UserDto;
+import co.edu.udea.gradesapi.model.mapper.UserMapper;
 import co.edu.udea.gradesapi.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static co.edu.udea.gradesapi.config.SwaggerConfig.BASIC_AUTH_SECURITY_SCHEME;
+import static co.edu.udea.gradesapi.config.security.WebSecurityConfig.ADMIN;
+import static co.edu.udea.gradesapi.config.security.WebSecurityConfig.TUTOR;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,6 +31,15 @@ import java.util.Optional;
 public class AuthController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
+
+    @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
+    @GetMapping
+    public List<UserDto> getUsers() {
+        return userService.getUsers().stream()
+                .map(userMapper::toUserDto)
+                .collect(Collectors.toList());
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody SignInRequest signInRequest) {
@@ -53,7 +72,23 @@ public class AuthController {
         user.setPassword(signUpRequest.getPassword());
         user.setNames(signUpRequest.getNames());
         user.setEmail(signUpRequest.getEmail());
-        user.setRole(WebSecurityConfig.TUTOR);
+
+        if (signUpRequest.getRole() == ADMIN) {
+            user.setRole(ADMIN);
+        }else if (signUpRequest.getRole() == TUTOR) {
+            user.setRole(TUTOR);
+        }else {
+            user.setRole(WebSecurityConfig.STUDENT);
+        }
+        user.setIdentityNumber(signUpRequest.getIdentityNumber());
+        user.setLastNames(signUpRequest.getLastNames());
+        user.setPhone(signUpRequest.getPhone());
+        user.setAddress(signUpRequest.getAddress());
+        user.setCity(signUpRequest.getCity());
+        user.setGender(signUpRequest.getGender());
+        user.setGender(signUpRequest.getGender());
+        user.setProfession(signUpRequest.getProfession());
+
         return user;
     }
 }

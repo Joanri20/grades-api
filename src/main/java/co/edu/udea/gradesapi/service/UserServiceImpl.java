@@ -60,4 +60,14 @@ public class UserServiceImpl implements UserService {
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()));
     }
 
+    @Override
+    public Optional<User> getUserById(Long studentId) {
+        return userRepository.findById(studentId);
+    }
+
+    @Override
+    public List<User> getUsersByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
 }

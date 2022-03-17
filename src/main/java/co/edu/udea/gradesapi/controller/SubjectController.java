@@ -1,9 +1,7 @@
 package co.edu.udea.gradesapi.controller;
 
 
-import co.edu.udea.gradesapi.model.Institution;
 import co.edu.udea.gradesapi.model.Subject;
-import co.edu.udea.gradesapi.model.dto.InstitutionDto;
 import co.edu.udea.gradesapi.model.dto.SubjectDto;
 import co.edu.udea.gradesapi.model.mapper.SubjectMapper;
 import co.edu.udea.gradesapi.service.SubjectService;
@@ -39,7 +37,7 @@ public class SubjectController {
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
     @GetMapping
     public List<SubjectDto> getAllSubjects(@Valid @RequestParam(value = "tutor", required = false) String tutor,
-                                                   @RequestParam(value = "period",required = false) String period ) {
+                                           @RequestParam(value = "period",required = false) String period ) {
         List<Subject> subjects;
         if(tutor==null&&period==null){
             subjects=subjectService.getSubjects();
@@ -54,11 +52,5 @@ public class SubjectController {
                 .map(subjectMapper::subjectToSubjectDto)
                 .collect(Collectors.toList());
     }
-
-
-
-
-
-
 
 }

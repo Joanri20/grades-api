@@ -5,7 +5,7 @@ spring:
     show-sql: true
     hibernate:
       default_schema: public
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         order_inserts: true

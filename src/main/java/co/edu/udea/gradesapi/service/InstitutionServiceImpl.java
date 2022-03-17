@@ -41,12 +41,12 @@ public class InstitutionServiceImpl implements InstitutionService {
         Optional<Institution> optionalHero = Optional.ofNullable(institutionRepository.findByName(institution.getName()));
         if(optionalHero.isPresent()){
             log.info("Ya se encuentra una institutcion con nombre:"+institution.getName());
-            throw new BusinessException(messages.get("exception.data_duplicate_name.hero"));
+            throw new BusinessException(messages.get("exception.data_duplicate_name.institution}"));
         }
         optionalHero = institutionRepository.findById(institution.getId());
         if(!optionalHero.isPresent()){
             log.info("No se encuentra un institution con ID:"+institution.getId());
-            throw new BusinessException(messages.get("exception.data_not_found.hero"));
+            throw new BusinessException(messages.get("exception.data_not_found.institution"));
         }
 
         log.info("Se actualizo el instiitucion con ID:"+institution.getId());

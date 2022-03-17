@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -33,8 +36,19 @@ public class User{
     private String address;
     private String city;
     private String gender;
-    private String grade;
+    private String gradeStage;
     private String profession;
 
+    @OneToOne(orphanRemoval = true)
+    @JoinTable(name = "tutors_subject",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private Subject subjectTutor;
 
+    @OneToMany(mappedBy = "student")
+    Set<SubjectRegistration> registrations;
+
+    @OneToMany(mappedBy = "studentGrade")
+    private List<Grade> grades = new ArrayList<>();
+    
 }

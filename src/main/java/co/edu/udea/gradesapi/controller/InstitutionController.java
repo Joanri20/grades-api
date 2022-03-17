@@ -34,6 +34,12 @@ public class InstitutionController {
     }
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
+    @GetMapping("/{id}")
+    public InstitutionDto getInstitution(@PathVariable Long id) {
+        return institutionMapper.institutionToInstitutionDto(institutionService.findById(id));
+    }
+
+    @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public InstitutionDto createInstitution(@Valid @RequestBody InstitutionDto institutionDto) {
@@ -43,7 +49,7 @@ public class InstitutionController {
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
     @PutMapping("/{id}")
-    public InstitutionDto updateInstitution(@Valid @PathVariable Long id, @RequestBody InstitutionDto institutionDto) {
+    public InstitutionDto updateInstitution(@PathVariable Long id,@Valid  @RequestBody  InstitutionDto institutionDto) {
         Institution institution = institutionMapper.institutionDtoToInstitution(institutionDto);
         institution.setId(id);
         return institutionMapper.institutionToInstitutionDto(institutionService.save(institution));

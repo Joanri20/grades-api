@@ -3,12 +3,14 @@ package co.edu.udea.gradesapi.service;
 
 import co.edu.udea.gradesapi.exception.DataNotFoundException;
 import co.edu.udea.gradesapi.model.Subject;
+import co.edu.udea.gradesapi.model.User;
 import co.edu.udea.gradesapi.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import co.edu.udea.gradesapi.utils.Messages;
 
@@ -16,6 +18,7 @@ import co.edu.udea.gradesapi.utils.Messages;
 @Service
 public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
+    private final UserService userService;
     private Messages messages;
 
     @Override
@@ -25,17 +28,17 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List<Subject> getSubjectsByIdTutor(String text) {
-        return subjectRepository.findByIdTutor(text);
+        return subjectRepository.findByTutor_Id(Long.valueOf(text));
     }
 
     @Override
     public List<Subject> getSubjectsByPeriod(String text) {
-        return subjectRepository.findByPeriodId(text);
+        return subjectRepository.findByPeriod_Id(Long.valueOf(text));
     }
 
     @Override
     public List<Subject> getSubjectByTutorAndPeriod(String tutor, String period) {
-        return subjectRepository.findByIdTutorAndPeriodId(tutor,period);
+        return subjectRepository.findByTutor_IdAndPeriod_Id(Long.valueOf(tutor),Long.valueOf(period));
     }
 
     @Override
@@ -46,6 +49,24 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject saveSubject(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
+    @Override
+    public Optional<Subject> getSubjectById(Long subjectId) {
+        return subjectRepository.findById(subjectId);
+    }
+
+    @Override
+    public Subject registerTutor(Long subjectId, Long tutorId) {
+        Subject subject = validateAndGetSubject(subjectId);
+        Optional<User> user = userService.getUserById(tutorId);
+        if(!user.isPresent()){
+            throw new DataNotFoundException(String.format("exception.data_not_found.user",tutorId));
+
+        }else{
+            subject.setTutor(user.get());
+        }
         return subjectRepository.save(subject);
     }
 

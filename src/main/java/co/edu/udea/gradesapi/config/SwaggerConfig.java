@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Value("${spring.application.name}")
+    @Value("GradesAPI")
     private String applicationName;
 
     @Bean

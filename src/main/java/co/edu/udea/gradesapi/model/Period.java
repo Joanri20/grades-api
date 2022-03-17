@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Year;
-import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +25,12 @@ public class Period {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
+
+    @OneToMany(mappedBy="period")
+    private Set<Subject> subjects;
+
+
+
 
     public Period(Integer year, LocalDate startDate, LocalDate endDate, String status) {
         this.year = year;

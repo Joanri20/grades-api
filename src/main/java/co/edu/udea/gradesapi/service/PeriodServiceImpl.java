@@ -28,7 +28,7 @@ public class PeriodServiceImpl implements PeriodService {
     @Override
     public Period validateAndGetPeriod(Long id) {
         return periodRepository.findById(String.valueOf(id))
-                .orElseThrow(() -> new DataNotFoundException(String.format("Book with isbn %s not found", id)));
+                .orElseThrow(() -> new DataNotFoundException(String.format("Period with id %s not found", id)));
     }
 
     @Override

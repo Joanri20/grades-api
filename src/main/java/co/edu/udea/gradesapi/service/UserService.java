@@ -23,4 +23,7 @@ public interface UserService {
 
     Optional<User> validUsernameAndPassword(String username, String password);
 
+    Optional<User> getUserById(Long studentId);
+
+    List<User> getUsersByRole(String role);
 }

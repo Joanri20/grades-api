@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,22 @@ public class Subject {
     private Long id;
 
     private String name;
-    private String idTutor;
-    private String periodId;
-    private String grade;
+    private int gradeStage;
+
+    //Belongs to a period
+    @ManyToOne
+    @JoinColumn(name="period_id", nullable=false)
+    private Period period;
+
+    //Have many GradeDefinition
+    @OneToMany(mappedBy = "subject")
+    private Set<GradeDefinition> gradeDefinitions;
+
+    //Have one tutor
+    @OneToOne(mappedBy = "subjectTutor")
+    private User tutor;
+
+    @OneToMany(mappedBy = "subject")
+    Set<SubjectRegistration> registrations;
+
 }

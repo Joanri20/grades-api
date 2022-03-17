@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,14 @@ public class UserController {
     public List<UserDto> getUsers() {
         return userService.getUsers().stream()
                 .map(userMapper::toUserDto)
+                .collect(Collectors.toList());
+    }
+
+    @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
+    @GetMapping("/by-role/{role}")
+    public List<UserDto> getUserByRole(@Valid @RequestParam(value = "role") String role) {
+        return userService.getUsersByRole(role).stream()
+                .map(userMapper::userToUserDto)
                 .collect(Collectors.toList());
     }
 

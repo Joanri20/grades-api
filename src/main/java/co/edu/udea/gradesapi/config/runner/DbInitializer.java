@@ -54,6 +54,13 @@ public class DbInitializer implements CommandLineRunner {
                     .username("student")
                     .password("student")
                     .email("student@mail.com")
+                    .names("Juan")
+                    .lastNames("Perez")
+                    .address("Calle falsa 123")
+                    .phone("987654321")
+                    .city("Bogota")
+                    .gender("M")
+                    .identityNumber(123456789L)
                     .role(WebSecurityConfig.STUDENT)
                     .build(),
             User.builder()
