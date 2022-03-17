@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/periods", "/periods/**").hasAnyAuthority(ADMIN, TUTOR)
                 .antMatchers(HttpMethod.GET, "/users/me").hasAnyAuthority(ADMIN, TUTOR, STUDENT)
                 .antMatchers("/periods", "/periods/**").hasAuthority(ADMIN)
+                .antMatchers("/notesdefinitions", "/notesdefinitions/**").hasAuthority(ADMIN)
                 .antMatchers("/users", "/users/**").hasAuthority(ADMIN)
                 .antMatchers("/institutions", "/institutions/**").hasAuthority(ADMIN)
                 .antMatchers("/subjects", "/subjects/**").hasAuthority(ADMIN)
