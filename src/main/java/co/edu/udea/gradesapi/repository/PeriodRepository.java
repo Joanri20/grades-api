@@ -9,5 +9,9 @@ import java.util.List;
 @Repository
 public interface PeriodRepository extends JpaRepository<Period, String> {
 
-    List<Period> findByYear(String year);
+    List<Period> findByYear(Integer year);
+
+    boolean existsByYearAndIndex(Integer year, Integer index);
+
+
 }

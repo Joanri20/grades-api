@@ -23,5 +23,4 @@ public class Institution {
     private String email;
     private String web;
     private String description;
-
 }

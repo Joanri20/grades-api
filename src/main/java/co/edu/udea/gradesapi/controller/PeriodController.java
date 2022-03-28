@@ -26,7 +26,7 @@ public class PeriodController {
 
     @Operation(security = {@SecurityRequirement(name = BASIC_AUTH_SECURITY_SCHEME)})
     @GetMapping
-    public List<PeriodDto> getPeriods(@RequestParam(value = "year", required = false) String text) {
+    public List<PeriodDto> getPeriods(@RequestParam(value = "year", required = false) Integer text) {
         List<Period> periods = (text == null) ? periodService.getPeriods() : periodService.getPeriodsContainingText(text);
         return periods.stream()
                 .map(periodMapper::periodToPeriodDto)

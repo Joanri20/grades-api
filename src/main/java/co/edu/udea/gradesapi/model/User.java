@@ -37,7 +37,6 @@ public class User{
     private String city;
     private String gender;
     private String gradeStage;
-    private String profession;
 
     @OneToOne(orphanRemoval = true)
     @JoinTable(name = "tutors_subject",

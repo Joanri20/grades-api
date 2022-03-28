@@ -87,7 +87,6 @@ public class AuthController {
         user.setCity(signUpRequest.getCity());
         user.setGender(signUpRequest.getGender());
         user.setGender(signUpRequest.getGender());
-        user.setProfession(signUpRequest.getProfession());
 
         return user;
     }

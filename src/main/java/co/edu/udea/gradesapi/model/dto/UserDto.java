@@ -21,7 +21,6 @@ public class UserDto implements Serializable {
     private final String city;
     private final String gender;
     private final String gradeStage;
-    private final String profession;
     private final Long subjectTutorId;
     private final Set<SubjectRegistrationDto> registrations;
     private final List<GradeDto> grades;
