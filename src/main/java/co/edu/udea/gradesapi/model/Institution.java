@@ -24,25 +24,24 @@ public class Institution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     @Schema(example = "Institution Juana Hoz")
     @Size(min= MIN_SIZE_NAME, max=MAX_SIZE_NAME)
     @Column
     private String name;
 
-    @NotBlank
     @Schema(example = "Cll 50 # 30-20")
     @Size(min= MIN_SIZE_ADDRESS, max=MAX_SIZE_ADDRESS)
     @Column
     private String address;
 
-    @NotBlank
+
     @Schema(example = "Cll 50 # 30-20")
     @Size(min= MIN_SIZE_ADDRESS, max=MAX_SIZE_ADDRESS)
     @Column
     private String phone;
 
-    @NotBlank
+
     @Schema(example = "institution@mail.com", description = "email from Institution")
     @Pattern(regexp = REGEX_EMAIL, message = "validation.email.invalid")
     @Size(min = MIN_SIZE_EMAIL, max = MAX_SIZE_EMAIL)

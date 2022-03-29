@@ -26,8 +26,8 @@ public class InstitutionDto implements Serializable {
     private final String phone;
     @Schema(example = "institution@mail.com", description = "email of the institution")
     //patern email
-    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "{validation.email.invalid}")
-    @Size(max = 320, message = "{validation.email.max}")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "validation.email.invalid")
+    @Size(max = 320, message = "validation.email.max")
     private final String email;
     @Schema(example = "https://www.institution.com", description = "The website of the institution")
     @Size(max = 35, message = "{validation.website.max}")

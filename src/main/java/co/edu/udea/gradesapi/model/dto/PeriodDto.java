@@ -16,19 +16,17 @@ import static co.edu.udea.gradesapi.utils.ValidatorConstants.REGEX_MODEL;
 public class PeriodDto implements Serializable {
 
     private final Long id;
-    @NotBlank
+
     @Schema(example = "2022")
     @Pattern(regexp=REGEX_MODEL)
     private final Integer year;
-    @NotBlank
+    @NotNull
     private final Integer index;
-    @NotBlank
-    @DateTimeFormat
+    @NotNull
     private final LocalDate startDate;
-    @NotBlank
-    @DateTimeFormat
+    @NotNull
     private final LocalDate endDate;
-    @NotBlank
+
     @Schema(example = "Active", description = "Status of academic period")
     @Size(max = 35)
     private final String status;

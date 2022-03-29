@@ -2,6 +2,7 @@ package co.edu.udea.gradesapi.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +17,7 @@ import java.util.Set;
 import static co.edu.udea.gradesapi.utils.ValidatorConstants.REGEX_MODEL;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,40 +29,27 @@ public class Period {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Schema(example = "2022")
-    @Pattern(regexp=REGEX_MODEL)
+
     @Column(nullable = false)
     private Integer year;
 
     @Column(nullable = false)
-    @NotBlank
     private Integer index;
 
     @Column(nullable = false)
-    @NotBlank
     @DateTimeFormat
     private LocalDate startDate;
 
     @Column(nullable = false)
-    @NotBlank
     @DateTimeFormat
     private LocalDate endDate;
 
     @Column(nullable = false)
-    @NotBlank
-    @Schema(example = "Active", description = "Status of academic period")
-    @Size(max = 35)
+   @Size(max = 35)
     private String status;
 
     @OneToMany(mappedBy="period")
     private Set<Subject> subjects;
 
 
-    public Period(Integer year, LocalDate startDate, LocalDate endDate, String status) {
-        this.year = year;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.status = status;
-    }
 }

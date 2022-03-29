@@ -14,7 +14,7 @@ import static co.edu.udea.gradesapi.utils.ValidatorConstants.*;
 @Data
 public class UserDto implements Serializable {
     private final Long id;
-    @NotBlank
+    @NotNull
     @Schema(example = "8025457")
     @Max(value=MAX_SIZE_ID)
     @Pattern(regexp=ID_NUMBER, message="")
@@ -75,11 +75,6 @@ public class UserDto implements Serializable {
     @Min(value = 0)
     @Max(value = 11)
     private final String gradeStage;
-
-    @NotBlank
-    @Schema(example = "Student")
-    @Size(min= MIN_SIZE_NAME, max=MAX_SIZE_NAME)
-    private final String profession;
 
 
     private final Long subjectTutorId;

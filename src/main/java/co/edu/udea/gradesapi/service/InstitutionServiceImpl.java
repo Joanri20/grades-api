@@ -19,7 +19,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     private final Logger log = LoggerFactory.getLogger(InstitutionServiceImpl.class);
 
     private final InstitutionRepository institutionRepository;
-    private final InstitutionService institutionService;
+    //private final InstitutionService institutionService;
     private Messages messages;
 
     @Override
@@ -66,8 +66,9 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public void delete(Institution institution) {
-        institution.setActive(false);
-        institutionService.update(institution);
+        institutionRepository.delete(institution);
+       // institution.setActive(false);
+       // institutionService.update(institution);
     }
 
     @Override

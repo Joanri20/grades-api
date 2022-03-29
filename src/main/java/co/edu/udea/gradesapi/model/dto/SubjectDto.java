@@ -16,15 +16,15 @@ public class SubjectDto implements Serializable {
     @Schema(example = "Matematicas")
     @Size(max = 100)
     private final String name;
-    @NotBlank
+    @NotNull
     @Schema(example = "8")
     @Pattern(regexp = ID_NUMBER)
     @Min(value = 0)
     @Max(value = 11)
     private final int gradeStage;
-    @NotBlank
+    @NotNull
     private final Long tutorId;
-    @NotBlank
+    @NotNull
     private final Long periodId;
     private final Set<GradeDefinition> gradeDefinitions;
     private final Set<SubjectRegistration> registrations;
@@ -40,7 +40,7 @@ public class SubjectDto implements Serializable {
         @Schema(example= "Examen sobre casos de factorización")
         @Size(max = 100)
         private final String description;
-        @NotBlank
+        @NotNull
         @Schema(example = "20.0")
         @DecimalMax(value="100.0")
         @DecimalMin(value="0.0")

@@ -3,20 +3,18 @@ package co.edu.udea.gradesapi.model.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Data
 public class GradeDto implements Serializable {
     private final Long id;
-    @NotBlank
+    @NotNull
     private final Long gradeDefinitionId;
-    @NotBlank
+
+    @NotNull
     private final Long studentGradeId;
-    @NotBlank
+    @NotNull
     @Schema(example = "4.8")
     @DecimalMax(value="5.0")
     @DecimalMin(value="0.0")

@@ -25,20 +25,19 @@ public class GradeDefinition {
     @Column(nullable = false)
     private Long id;
 
-    @NotBlank
+
     @Column(nullable = false)
     @Schema(example = "Examen 1")
     @Size(max = 40)
     private String name;
 
-    @NotBlank
+
     @Column(nullable = false)
     @Schema(example= "Examen sobre casos de factorización")
     @Size(max = 100)
     private String description;
 
     @Column(nullable = false)
-    @NotBlank
     @Schema(example = "20.0")
     @DecimalMax(value="100.0")
     @DecimalMin(value="0.0")

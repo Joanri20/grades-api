@@ -27,7 +27,7 @@ public class Grade {
     @DecimalMin(value="0.0")
     private Double value;
 
-    @NotBlank
+
     @Size(max = 200)
     private String comment;
 

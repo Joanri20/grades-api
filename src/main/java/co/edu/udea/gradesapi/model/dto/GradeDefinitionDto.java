@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public class GradeDefinitionDto implements Serializable {
     private final Long id;
-    @NotBlank
+    @NotNull
     private final Long subjectId;
     @NotBlank
     @Schema(example = "Examen 1")
@@ -20,7 +20,7 @@ public class GradeDefinitionDto implements Serializable {
     @Schema(example= "Examen sobre casos de factorización")
     @Size(max = 100)
     private final String description;
-    @NotBlank
+    @NotNull
     @Schema(example = "20.0")
     @DecimalMax(value="100.0")
     @DecimalMin(value="0.0")
