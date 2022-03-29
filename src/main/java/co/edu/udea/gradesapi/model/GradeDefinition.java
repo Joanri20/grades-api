@@ -1,10 +1,15 @@
 package co.edu.udea.gradesapi.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,22 +22,26 @@ import java.util.Set;
 public class GradeDefinition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @NotBlank
+    @Column(nullable = false)
+    @Schema(example = "Examen 1")
+    @Size(max = 40)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @NotBlank
+    @Column(nullable = false)
+    @Schema(example= "Examen sobre casos de factorización")
+    @Size(max = 100)
     private String description;
 
-    @Column(name = "min_value", nullable = false)
-    private Double minValue = 0.0;
-
-    @Column(name = "max_value", nullable = false)
-    private Double maxValue = 5.0;
-
-    @Column(name = "percentage", nullable = false)
+    @Column(nullable = false)
+    @NotBlank
+    @Schema(example = "20.0")
+    @DecimalMax(value="100.0")
+    @DecimalMin(value="0.0")
     private Double percentage;
 
     @OneToMany(mappedBy = "gradeDefinition")
@@ -42,12 +51,4 @@ public class GradeDefinition {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    public GradeDefinition(String name, String description, Double minValue, Double maxValue, Double percentage, Subject subject) {
-        this.name = name;
-        this.description = description;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.percentage = percentage;
-        this.subject = subject;
-    }
 }

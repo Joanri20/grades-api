@@ -1,11 +1,16 @@
 package co.edu.udea.gradesapi.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -15,12 +20,19 @@ import javax.persistence.*;
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "value", nullable = false)
+    @DecimalMax(value="5.0")
+    @DecimalMin(value="0.0")
     private Double value;
+
+    @NotBlank
+    @Size(max = 200)
     private String comment;
+
+    @Column
+    @Size(max = 10)
     private String status;
 
     @ManyToOne

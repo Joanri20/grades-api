@@ -40,6 +40,7 @@ public class SubjectRegistrationServiceImpl implements SubjectRegistrationServic
 
     @Override
     public SubjectRegistration registerSubject(Long subjectId, Long studentId) {
+        //if user no existe -- excepcion
         Optional<User> user = userService.getUserById(studentId);
         Optional<Subject> subject = subjectService.getSubjectById(subjectId);
         return registerSubject(subject.get().getId(), user.get().getId());
@@ -47,8 +48,11 @@ public class SubjectRegistrationServiceImpl implements SubjectRegistrationServic
 
     @Override
     public void unregisterSubject(Long subjectId, Long studentId) {
+        //borrar la matricula
 
     }
+
+
 
     @Override
     public List<SubjectRegistration> registerSubjects(Long studentId, Long[] subjectIds) {

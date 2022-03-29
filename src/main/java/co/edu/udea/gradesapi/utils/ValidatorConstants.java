@@ -13,11 +13,22 @@ public class ValidatorConstants {
     public static final int MIN_SIZE_PASSWORD = 8;
     public static final int MAX_SIZE_PASSWORD = 16;
 
+    public static final int MIN_SIZE_ADDRESS = 1;
+    public static final int MAX_SIZE_ADDRESS = 50;
+
+    public static final int MIN_SIZE_WEB = 6;
+    public static final int MAX_SIZE_WEB = 50;
+
     public static final int MIN_SIZE_ID = 5;
     public static final int MAX_SIZE_ID = 12;
 
     public static final int MIN_SIZE_LASTNAME = 1;
     public static final int MAX_SIZE_LASTNAME = 25;
+
+    public static final int MAX_SIZE_DESCRIPTION = 100;
+
+    public static final String ID_NUMBER = "^\\d+$";
+
 
     //Año de 1900 a 2099
     public static final String REGEX_MODEL =

@@ -19,6 +19,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     private final Logger log = LoggerFactory.getLogger(InstitutionServiceImpl.class);
 
     private final InstitutionRepository institutionRepository;
+    private final InstitutionService institutionService;
     private Messages messages;
 
     @Override
@@ -38,13 +39,13 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public Institution update(Institution institution) {
-        Optional<Institution> optionalHero = Optional.ofNullable(institutionRepository.findByName(institution.getName()));
-        if(optionalHero.isPresent()){
+        Optional<Institution> optionalInstitution = Optional.ofNullable(institutionRepository.findByName(institution.getName()));
+        if(optionalInstitution.isPresent()){
             log.info("Ya se encuentra una institutcion con nombre:"+institution.getName());
             throw new BusinessException(messages.get("exception.data_duplicate_name.institution}"));
         }
-        optionalHero = institutionRepository.findById(institution.getId());
-        if(!optionalHero.isPresent()){
+        optionalInstitution = institutionRepository.findById(institution.getId());
+        if(!optionalInstitution.isPresent()){
             log.info("No se encuentra un institution con ID:"+institution.getId());
             throw new BusinessException(messages.get("exception.data_not_found.institution"));
         }
@@ -55,12 +56,18 @@ public class InstitutionServiceImpl implements InstitutionService {
 
     @Override
     public Institution save(Institution institution) {
+        Optional<Institution> optionalInstitution = Optional.ofNullable(institutionRepository.findByName(institution.getName()));
+        if(optionalInstitution.isPresent()){
+            log.info("Ya se encuentra una institutcion con nombre:"+institution.getName());
+            throw new BusinessException(messages.get("exception.data_duplicate_name.institution"));
+        }
         return institutionRepository.save(institution);
     }
 
     @Override
     public void delete(Institution institution) {
-        institutionRepository.delete(institution);
+        institution.setActive(false);
+        institutionService.update(institution);
     }
 
     @Override
