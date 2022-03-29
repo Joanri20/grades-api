@@ -1,6 +1,5 @@
 package co.edu.udea.gradesapi.config.runner;
 
-import co.edu.udea.gradesapi.config.security.WebSecurityConfig;
 import co.edu.udea.gradesapi.model.Period;
 import co.edu.udea.gradesapi.model.User;
 import co.edu.udea.gradesapi.service.PeriodService;
@@ -11,11 +10,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static co.edu.udea.gradesapi.config.security.WebSecurityConfig.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,24 +31,36 @@ public class DbInitializer implements CommandLineRunner {
             return;
         }
         USERS.forEach(userService::saveUser);
-       // getPeriods().forEach(periodService::savePeriod);
+        getPeriods().forEach(periodService::savePeriod);
         log.info("Database initialized");
     }
 
-    /*private List<Period> getPeriods() {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-m-dd");
+    private List<Period> getPeriods() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return Arrays.stream(PERIODS_STR.split("\n"))
                 .map(periodInfoStr -> periodInfoStr.split(";"))
-                .map(periodInfoArr -> new Period(Year.parse(periodInfoArr[1]), LocalDate.parse(periodInfoArr[2],df), LocalDate.parse(periodInfoArr[3],df), periodInfoArr[4]))
-                .collect(Collectors.toList());
+                .map(periodInfo -> Period.builder()
+                        .index(Integer.parseInt(periodInfo[0]))
+                        .year(Integer.parseInt(periodInfo[1]))
+                        .startDate(LocalDate.parse(periodInfo[2], df))
+                        .endDate(LocalDate.parse(periodInfo[3], df))
+                        .build()
+                ).collect(Collectors.toList());
     }
-*/
+
     private static final List<User> USERS = Arrays.asList(
             User.builder()
                     .username("admin")
                     .password("admin")
                     .email("admin@mail.com")
-                    .role(WebSecurityConfig.ADMIN)
+                    .names("Carlos")
+                    .lastNames("Garcia")
+                    .address("Calle falsa 123")
+                    .phone("3001234567")
+                    .city("Medellin")
+                    .gender("M")
+                    .identityNumber(1034651255L)
+                    .role(ADMIN)
                     .build(),
             User.builder()
                     .username("student")
@@ -56,24 +68,34 @@ public class DbInitializer implements CommandLineRunner {
                     .email("student@mail.com")
                     .names("Juan")
                     .lastNames("Perez")
-                    .address("Calle falsa 123")
-                    .phone("987654321")
+                    .address("Calle falsa 456")
+                    .phone("3001236547")
                     .city("Bogota")
                     .gender("M")
                     .identityNumber(123456789L)
-                    .role(WebSecurityConfig.STUDENT)
+                    .role(STUDENT)
                     .build(),
             User.builder()
                     .username("tutor")
                     .password("tutor")
                     .email("tutor@mail.com")
-                    .role(WebSecurityConfig.TUTOR)
+                    .names("Maria")
+                    .lastNames("Paez")
+                    .address("Calle falsa 321")
+                    .phone("3004445555")
+                    .city("Rionegro")
+                    .gender("F")
+                    .identityNumber(123456789L)
+                    .role(TUTOR)
                     .build()
     );
 
-    private static final String PERIODS_STR = "1;2022;2022-1-13;2022-3-15;IN COURSE\n"
-            + "2;2022;2022-3-16;2022-5-15;PENDING\n"
-            + "3;2022;2022-7-16;2022-9-15;PENDING\n"
-            + "4;2022;2022-9-16;2022-11-30;PENDING\n";
+    private static final String PERIODS_STR =
+              "1;2022;2022-01-13;2022-03-15\n"
+            + "2;2022;2022-03-16;2022-05-15\n"
+            + "3;2022;2022-07-16;2022-09-15\n"
+            + "4;2022;2022-09-16;2022-11-30\n";
+
+
 
 }

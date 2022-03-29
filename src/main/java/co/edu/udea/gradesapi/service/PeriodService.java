@@ -8,7 +8,7 @@ public interface PeriodService {
 
     List<Period> getPeriods();
 
-    List<Period> getPeriodsContainingText(String text);
+    List<Period> getPeriodsContainingText(Integer text);
 
     Period validateAndGetPeriod(Long id);
 

@@ -16,10 +16,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     private static Logger logger = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
 
-    @ExceptionHandler({BusinessException.class})
-    protected ResponseEntity<String> handleBusinessException(HttpServletRequest request, BusinessException ex) {
-        logger.error(request.getRequestURL().toString(), ex);
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    //business exception
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleBusinessException(HttpServletRequest request, BusinessException ex) {
+        logger.error("BusinessException: {}", ex.getMessage());
+        String bodyOfResponse =
+                String.format("{\"status\": %d, \"error\": \"%s\", \"message\": \"%s\"}",
+                        409, "Conflict", ex.getMessage());
+        return new ResponseEntity<>(bodyOfResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(DataNotFoundException.class)
@@ -31,7 +35,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<String> handleIllegalArgumentException(HttpServletRequest request, IllegalArgumentException ex) {
         logger.error(request.getRequestURL().toString(), ex);
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(String.format("\"message\": {}", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Throwable.class)
@@ -41,4 +45,5 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         logger.error(request.getRequestURL().toString(), ex);
         return new ResponseEntity<>("No se ha podido procesar su solicitud. Contacte al administrador.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }

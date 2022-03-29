@@ -2,7 +2,7 @@ spring:
   application:
     name: book-api
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       default_schema: public
       ddl-auto: create
